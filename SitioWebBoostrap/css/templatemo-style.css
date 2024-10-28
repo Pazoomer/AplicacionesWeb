@@ -1,17 +1,22 @@
-/*
-
-Simple House
-
-https://templatemo.com/tm-539-simple-house
-
-*/
-
-ul, nav, body, h1, h2, h4, h6, p, figure {
+ul,
+nav,
+body,
+h1,
+h2,
+h4,
+h6,
+p,
+figure {
   margin: 0;
   padding: 0;
+  color: #EE990B;
 }
 
-a, button { transition: all 0.3s ease; }
+
+a,
+button {
+  transition: all 0.3s ease;
+}
 
 /* Bootstrap grid system  */
 
@@ -53,7 +58,7 @@ html {
 .col-lg-6,
 .col-md-4,
 .col-md-6,
-.col-sm-6, 
+.col-sm-6,
 .col-12 {
   position: relative;
   width: 100%;
@@ -81,7 +86,7 @@ html {
     flex: 0 0 33.333333%;
     max-width: 33.333333%;
   }
-  
+
   .col-md-6 {
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
@@ -95,13 +100,13 @@ html {
     flex: 0 0 25%;
     max-width: 25%;
   }
-  
+
   .col-lg-4 {
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
     max-width: 33.333333%;
   }
-  
+
   .col-lg-6 {
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
@@ -128,7 +133,7 @@ html {
 .tm-btn-default {
   border: 1px solid #ccc;
   background-color: transparent;
-  color: #626364;
+  color: white;
 }
 
 .tm-btn-default:hover,
@@ -172,7 +177,7 @@ html {
 }
 
 .tm-mb-p {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .tm-text-success {
@@ -195,16 +200,17 @@ html {
 body {
   font-family: 'Open Sans', Arial, sans-serif;
   font-size: 17px;
-  background-color: #ccc;
+  background-color: #EE990B;
   overflow-x: hidden;
 }
 
 .container {
-  background-color: white;
+  background-color: #3F2419;
 }
 
-p, address {
-  color: #626364;
+p,
+address {
+  color: white;
   line-height: 1.8;
 }
 
@@ -212,7 +218,7 @@ p, address {
 .placeholder {
   width: 100%;
   min-height: 460px;
-  background-color: #556E5B;
+  background-color: #3F2419;
 }
 
 .placeholder-2 {
@@ -224,9 +230,11 @@ p, address {
 }
 
 .parallax-window {
-  min-height: 460px;
   background: transparent;
   position: relative;
+  height: 430px;
+  background-size: cover;
+  background-position: center;
 }
 
 .parallax-window-2 {
@@ -310,6 +318,10 @@ p, address {
   color: white;
   text-decoration: none;
   padding-bottom: 10px;
+  background-color: #3F2419;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 .tm-nav-link.active,
@@ -344,6 +356,7 @@ p, address {
 
 .tm-gallery-description {
   font-size: 0.95rem;
+  color: white;
 }
 
 .tm-section,
@@ -362,6 +375,7 @@ p, address {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+
   .tm-gallery-page,
   .tm-section,
   .tm-container-inner,
@@ -372,15 +386,16 @@ p, address {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+
   .tm-gallery-page,
   .tm-section {
     max-width: 1120px;
   }
-  
+
   .tm-container-inner {
     max-width: 1120px;
   }
-  
+
   .tm-container-inner-2 {
     max-width: 900px;
   }
@@ -392,12 +407,18 @@ p, address {
 
 .tm-gallery-img {
   margin-bottom: 20px;
+  width: 100%;
+  /* Ajusta el ancho al 100% del contenedor */
+  height: 200px;
+  /* Altura fija */
+  object-fit: cover;
+  /* Mantiene la proporción de la imagen y recorta si es necesario */
 }
 
 .tm-gallery-title {
   font-size: 1.3rem;
   font-weight: 400;
-  color: #1A6692;
+  color: #EE990B;
   margin-bottom: 15px;
 }
 
@@ -407,7 +428,7 @@ p, address {
 
 .tm-gallery-price {
   font-size: 1.25rem;
-  color: #2F956D;
+  color: #EE990B;
   margin-bottom: 60px;
 }
 
@@ -440,7 +461,7 @@ p, address {
 }
 
 .tm-description-figure {
-  text-align: center;  
+  text-align: center;
 }
 
 .tm-description-box {
@@ -475,7 +496,7 @@ p, address {
 }
 
 .tm-footer a {
-  color: #626364;
+  color: white;
   text-decoration: none;
 }
 
@@ -531,7 +552,7 @@ p, address {
 }
 
 .tm-social-link {
-  color: #626364;
+  color: white;
   display: inline-block;
   border-radius: 1px;
   background-color: transparent;
@@ -545,7 +566,7 @@ p, address {
 
 .tm-social-link:hover {
   color: white;
-  background-color: #626364;
+  background-color: white;
 }
 
 .tm-social-icon {
@@ -591,10 +612,10 @@ p, address {
 }
 
 @media (min-width: 768px) {
- .tm-history-img {
+  .tm-history-img {
     max-width: 50%;
   }
-  
+
   .tm-history-inner {
     flex-direction: row;
   }
@@ -617,10 +638,10 @@ p, address {
 }
 
 @media (min-width: 768px) {
- .tm-history-text {
+  .tm-history-text {
     max-width: auto;
     margin: 0 auto 0 35px;
-  } 
+  }
 }
 
 /* Contact Page */
@@ -629,9 +650,9 @@ p, address {
 }
 
 @media (min-width: 768px) {
- .tm-contact-form {
+  .tm-contact-form {
     max-width: 310px;
-  } 
+  }
 }
 
 .tm-d-flex {
@@ -654,7 +675,7 @@ p, address {
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #626364;
+  color: white;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
@@ -719,9 +740,9 @@ address {
 }
 
 @media (min-width: 768px) {
- .tm-address-box {
+  .tm-address-box {
     max-width: 315px;
-  } 
+  }
 }
 
 .tm-contact-icon {
@@ -732,7 +753,7 @@ address {
 
 .tm-contact-link {
   display: inline-block;
-  color: #626364;
+  color: white;
   margin-bottom: 25px;
   text-decoration: none;
 }
@@ -796,7 +817,8 @@ address {
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.accordion.active, .accordion:hover {
+.accordion.active,
+.accordion:hover {
   color: #09C;
 }
 
@@ -804,9 +826,11 @@ address {
   0% {
     content: '\f0d9';
   }
+
   50% {
     color: white;
   }
+
   100% {
     content: "\f0d7";
   }
@@ -816,9 +840,11 @@ address {
   0% {
     content: '\f0d7';
   }
+
   50% {
     color: white;
   }
+
   100% {
     content: "\f0d9";
   }
