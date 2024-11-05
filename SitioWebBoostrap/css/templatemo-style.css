@@ -303,8 +303,8 @@ address {
   list-style: none;
   display: block;
   margin-bottom: 0;
-  padding-right: 25px;
-  padding-left: 25px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 @media (max-width: 991px) {
@@ -531,7 +531,7 @@ address {
 .tm-person-name {
   font-size: 1.6rem;
   font-weight: 300;
-  color: #09C;
+  color: rgb(224, 144, 47);
   margin-bottom: 5px;
   margin-top: 15px;
 }
@@ -549,6 +549,7 @@ address {
 
 .tm-person-about {
   margin-bottom: 20px;
+  text-align: justify;
 }
 
 .tm-social-link {
