@@ -303,8 +303,8 @@ address {
   list-style: none;
   display: block;
   margin-bottom: 0;
-  padding-right: 25px;
-  padding-left: 25px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 @media (max-width: 991px) {
