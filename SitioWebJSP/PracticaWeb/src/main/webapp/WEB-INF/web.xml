@@ -21,6 +21,15 @@
         <url-pattern>/nuevousuario</url-pattern>
     </servlet-mapping>
     
+    <!-- Servlet para Añadir al carrito -->
+    <servlet>
+        <servlet-name>AddCart</servlet-name>
+        <servlet-class>servlet.AddCart</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddCart</servlet-name>
+        <url-pattern>/AddCart</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -8,7 +8,6 @@ public class ControladorProducto {
     public String getProductos(){
         
         ModeloProducto mp = new ModeloProducto();
-        int contador=0;
         String htmlcode = "";
         for (Producto producto : mp.getAllProductos()) {
             htmlcode += "<div class=\"col-sm-4\">\n"
@@ -29,15 +28,13 @@ public class ControladorProducto {
                     + "									</div>\n"
                     + "								</div>\n"
                     + "								<div class=\"choose\">\n"
-                    + "									<ul class=\"nav nav-pills nav-justified\">\n"
-                    + "										<li><a href=\"\"><i class=\"fa fa-plus-square\"></i>Add to wishlist</a></li>\n"
-                    + "										<li><a href=\"\"><i class=\"fa fa-plus-square\"></i>Add to compare</a></li>\n"
+                    + "									<ul class=\"nav nav-pills nav-justified\">\n"   
+                    + "										<li><a href=\"AddCart?cantidad=1&idproducto=" + producto.getId() + "\"><i class=\"fa fa-plus-square\"></i>Añadir al carrito</a></li>"
                     + "									</ul>\n"
                     + "								</div>\n"
                     + "							</div>\n"
                     + "						</div>";
         }
-        htmlcode=htmlcode.concat(String.valueOf(contador));
         return htmlcode;    
     }
     

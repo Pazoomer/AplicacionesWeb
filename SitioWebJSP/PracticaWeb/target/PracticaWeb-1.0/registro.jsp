@@ -5,6 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%  
+    HttpSession objSesion = request.getSession(false);
+    if (objSesion == null || objSesion.getAttribute("usuario") == null) {
+        response.sendRedirect("index.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>

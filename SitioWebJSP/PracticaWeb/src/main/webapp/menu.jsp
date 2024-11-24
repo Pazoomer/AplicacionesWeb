@@ -1,13 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="controlador.ControladorProducto" %>
 <%
-    HttpSession objSesion = request.getSession(false);
-    if (objSesion == null || objSesion.getAttribute("usuario") == null) {
+    if (session == null || session.getAttribute("usuario") == null) {
         response.sendRedirect("index.jsp");
     }
-    String usuario = (String) objSesion.getAttribute("usuario");
+    String usuario = (String) session.getAttribute("usuario");  // Obtener el usuario de la sesión
 %>
-
 <%
     controlador.ControladorProducto cp = new controlador.ControladorProducto();
 %>
@@ -28,7 +26,10 @@
             <a class="navbar-brand" href="#">Logo</a>
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Productos</a>
+                    <a class="nav-link" href="shop.jsp">Productos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="cart.jsp">Carrito</a> 
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.jsp">Cerrar sesión</a> 

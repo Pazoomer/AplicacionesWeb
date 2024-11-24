@@ -1,10 +1,10 @@
-<%@page import="classes.Producto"%>
-<%@page import="controllers.ControladorProducto"%>
-<%@page import="classes.Articulo"%>
+<%@page import="clases.Producto"%>
+<%@page import="controlador.ControladorProducto"%>
+<%@page import="clases.Articulo"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page session="true" %>
 <%
-     HttpSession sesion = request.getSession(true);
-     ArrayList<Articulo> articulos = sesion.getAttribute("carrito") == null ? null : (ArrayList) sesion.getAttribute("carrito");
+     ArrayList<Articulo> articulos = session.getAttribute("carrito") == null ? null : (ArrayList) session.getAttribute("carrito");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +96,7 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
@@ -125,7 +125,7 @@
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
 										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
+										<li><a href="checkout.jsp">Checkout</a></li> 
 										<li><a href="cart.html" class="active">Cart</a></li> 
 										<li><a href="login.html">Login</a></li> 
                                     </ul>

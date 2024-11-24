@@ -1,4 +1,9 @@
-<%@page import="controllers.ControladorProducto"%>
+<%@page import="controlador.ControladorProducto"%>
+<%
+    if (session == null || session.getAttribute("usuario") == null) {
+        response.sendRedirect("index.jsp");
+    }
+%>
 <%
     ControladorProducto cp = new ControladorProducto();
 %>

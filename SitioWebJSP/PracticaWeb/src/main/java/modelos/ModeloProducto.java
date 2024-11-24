@@ -2,8 +2,10 @@ package modelos;
 
 import clases.Producto;
 import controlador.Conexion;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class ModeloProducto extends Conexion{
             }
             System.out.println("Productos obtenidos: " + productos.size());  // Verificar la cantidad de productos
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();  // Mostrar detalles del error
         } finally {
             try {
@@ -43,7 +45,7 @@ public class ModeloProducto extends Conexion{
                 if (getConexion() != null) {
                     getConexion().close();
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();  // Mostrar detalles del error al cerrar recursos
             }
         }
@@ -64,7 +66,7 @@ public class ModeloProducto extends Conexion{
                         rs.getDouble("precio"), rs.getInt("stock"));
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             
         }finally{
             try{
@@ -77,10 +79,44 @@ public class ModeloProducto extends Conexion{
                 if(getConexion()!=null){
                     getConexion().close();
                 }
-            }catch(Exception e){
+            }catch(SQLException e){
                 
             }
         }
         return producto;
     }   
+    
+    public boolean comprarProducto(int productoId, int cantidad) {
+        CallableStatement cstmt = null;
+        boolean exito = false;
+        try {
+            // Llamada al procedimiento almacenado 'comprar_producto'
+            String sql = "{CALL comprar_producto(?, ?)}";
+            cstmt = getConexion().prepareCall(sql);
+            
+            // Establecer los parámetros
+            cstmt.setInt(1, productoId);  // ID del producto
+            cstmt.setInt(2, cantidad);     // Cantidad a comprar
+            
+            // Ejecutar el procedimiento
+            cstmt.execute();
+            exito = true;  // Si la ejecución es exitosa, se marca como true
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Si hay un error (por ejemplo, falta de stock), se captura la excepción
+        } finally {
+            try {
+                if (cstmt != null) {
+                    cstmt.close();
+                }
+                if (getConexion() != null) {
+                    getConexion().close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return exito;  // Devuelve true si la compra fue exitosa, false si hubo algún error
+    }
 }

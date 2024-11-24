@@ -1,5 +1,5 @@
-<%@page import="controllers.ControladorProducto"%>
-<%@page import="classes.Producto"%>
+<%@page import="controlador.ControladorProducto"%>
+<%@page import="clases.Producto"%>
 <%
     int id = Integer.parseInt(request.getParameter("id"));
     Producto producto = new ControladorProducto().getProducto(id);

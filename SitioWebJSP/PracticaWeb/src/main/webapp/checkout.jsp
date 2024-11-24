@@ -1,3 +1,8 @@
+<%  
+    if (session == null || session.getAttribute("usuario") == null) {
+        response.sendRedirect("index.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
