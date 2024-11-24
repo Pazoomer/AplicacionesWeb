@@ -1,0 +1,12 @@
+controlador\Consultas.class
+servlet\DeleteItem.class
+modelos\ModeloProducto.class
+clases\Producto.class
+servlet\RegistrarUsuario.class
+itson\mx\practicaweb\resources\JakartaEE10Resource.class
+itson\mx\practicaweb\JakartaRestConfiguration.class
+controlador\Conexion.class
+controlador\ControladorProducto.class
+servlet\AddCart.class
+servlet\InicioSesion.class
+clases\Articulo.class
