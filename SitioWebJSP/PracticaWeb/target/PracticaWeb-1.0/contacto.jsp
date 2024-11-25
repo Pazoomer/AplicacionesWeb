@@ -5,8 +5,6 @@
         response.sendRedirect("index.jsp");
     }
     String usuario = (String) session.getAttribute("usuario");  // Obtener el usuario de la sesión
-    
-    controlador.ControladorProducto cp = new controlador.ControladorProducto();
 %>
 <!DOCTYPE html>
 <html>
@@ -43,15 +41,6 @@
                 </li>
             </ul>
         </nav>
-        <div class="alert alert-primary">
-            <strong>Bienvenido</strong> <% out.println(usuario);%>
-        </div>
-        <div class="alert alert-primary">
-            <strong>Administrar cuenta</strong>
-        </div>
-        <div class="alert alert-primary">
-            <strong>Promociones</strong>
-        </div>
     </body>
 </html>
 

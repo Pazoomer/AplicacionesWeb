@@ -5,11 +5,9 @@
         response.sendRedirect("index.jsp");
     }
     String usuario = (String) session.getAttribute("usuario");  // Obtener el usuario de la sesión
-%>
-<%
+    
     controlador.ControladorProducto cp = new controlador.ControladorProducto();
 %>
-<!TODO: Hacer logout.jsp>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,13 +21,22 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="menu.jsp">Logo</a>
             <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="menu.jsp">Inicio</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="shop.jsp">Productos</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="cart.jsp">Carrito</a> 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="historial.jsp">Historial de compras</a> 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="contacto.jsp">Contacto</a> 
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.jsp">Cerrar sesión</a> 
@@ -39,10 +46,11 @@
         <div class="alert alert-primary">
             <strong>Bienvenido</strong> <% out.println(usuario);%>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <%= cp.getProductos() %>
-            </div>
+        <div class="alert alert-primary">
+            <strong>Administrar cuenta</strong>
+        </div>
+        <div class="alert alert-primary">
+            <strong>Promociones</strong>
         </div>
     </body>
 </html>

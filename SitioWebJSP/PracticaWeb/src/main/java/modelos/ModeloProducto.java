@@ -28,7 +28,8 @@ public class ModeloProducto extends Conexion{
                         rs.getString("nombre"),
                         rs.getString("img_producto"),
                         rs.getDouble("precio"),
-                        rs.getInt("stock")));
+                        rs.getInt("stock"),
+                        rs.getString("descripcion")));
             }
             System.out.println("Productos obtenidos: " + productos.size());  // Verificar la cantidad de productos
 
@@ -63,7 +64,7 @@ public class ModeloProducto extends Conexion{
             rs = pst.executeQuery();
             while (rs.next()) {
                 producto=new Producto(rs.getInt("id_producto"), rs.getString("nombre"), rs.getString("img_producto"),
-                        rs.getDouble("precio"), rs.getInt("stock"));
+                        rs.getDouble("precio"), rs.getInt("stock"),rs.getString("descripcion"));
             }
 
         } catch (SQLException e) {
