@@ -42,4 +42,8 @@ public class ControladorProducto {
     public Producto getProducto(int id){
         return new ModeloProducto().getProducto(id);
     }
+    
+    public boolean comprarProducto(int productoId, int cantidad){
+        return new ModeloProducto().comprarProducto(productoId, cantidad);
+    }
 }

@@ -91,20 +91,24 @@ public class ModeloProducto extends Conexion{
         boolean exito = false;
         try {
             // Llamada al procedimiento almacenado 'comprar_producto'
-            String sql = "{CALL comprar_producto(?, ?)}";
+            String sql = "{CALL comprar_producto(?, ?, ?)}";
             cstmt = getConexion().prepareCall(sql);
-            
-            // Establecer los parámetros
-            cstmt.setInt(1, productoId);  // ID del producto
-            cstmt.setInt(2, cantidad);     // Cantidad a comprar
-            
+
+            // Establecer los parámetros de entrada
+            cstmt.setInt(1, productoId);
+            cstmt.setInt(2, cantidad);
+
+            // Registrar el parámetro de salida
+            cstmt.registerOutParameter(3, java.sql.Types.BOOLEAN);
+
             // Ejecutar el procedimiento
             cstmt.execute();
-            exito = true;  // Si la ejecución es exitosa, se marca como true
-            
+
+            // Leer el valor del parámetro de salida
+            exito = cstmt.getBoolean(3);
+
         } catch (SQLException e) {
             e.printStackTrace();
-            // Si hay un error (por ejemplo, falta de stock), se captura la excepción
         } finally {
             try {
                 if (cstmt != null) {
@@ -117,6 +121,7 @@ public class ModeloProducto extends Conexion{
                 e.printStackTrace();
             }
         }
-        return exito;  // Devuelve true si la compra fue exitosa, false si hubo algún error
+        return exito;
     }
+
 }
