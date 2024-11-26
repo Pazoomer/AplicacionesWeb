@@ -6,6 +6,11 @@
     }
     String usuario = (String) session.getAttribute("usuario");  // Obtener el usuario de la sesión
     
+    Integer usuarioId = (Integer) session.getAttribute("id");
+    if (usuarioId == null) {
+            // Maneja el caso en el que el usuario no esté autenticado
+        throw new IllegalStateException("El usuario no ha iniciado sesión.");
+    }
     controlador.ControladorProducto cp = new controlador.ControladorProducto();
 %>
 <!DOCTYPE html>
@@ -43,6 +48,11 @@
                 </li>
             </ul>
         </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <%= cp.getCompras(usuarioId) %>
+            </div>
+        </div>
     </body>
 </html>
 

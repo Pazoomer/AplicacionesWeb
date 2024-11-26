@@ -1,6 +1,6 @@
 package clases;
 
-import java.util.Calendar;
+import java.sql.Date;
 
 /**
  *
@@ -8,12 +8,18 @@ import java.util.Calendar;
  */
 public class Compra {
     private int idUsuario;
-    private Calendar fecha;
+    private Date fecha;
     private String estado;
     private double total;
 
-    public Compra(int idUsuario, Calendar fecha, String estado, double total) {
+    public Compra(int idUsuario, Date fecha, String estado, double total) {
         this.idUsuario = idUsuario;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.total = total;
+    }
+
+    public Compra(Date fecha, String estado, double total) {
         this.fecha = fecha;
         this.estado = estado;
         this.total = total;
@@ -27,11 +33,11 @@ public class Compra {
         this.idUsuario = idUsuario;
     }
 
-    public Calendar getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(Calendar fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

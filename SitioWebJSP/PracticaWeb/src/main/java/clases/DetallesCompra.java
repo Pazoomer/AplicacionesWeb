@@ -17,6 +17,12 @@ public class DetallesCompra {
         this.precio = precio;
     }
 
+    public DetallesCompra(int idProducto, int cantidad, double precio) {
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
     public int getIdCompra() {
         return idCompra;
     }
@@ -47,7 +53,5 @@ public class DetallesCompra {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }
-    
-    
+    }  
 }

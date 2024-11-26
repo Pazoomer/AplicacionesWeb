@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  *
  * @author t1pas
  */
+//TODO: Hacer un ModeloCompra
 public class ModeloProducto extends Conexion{
 
     public List<Producto> getAllProductos() {
@@ -37,7 +38,7 @@ public class ModeloProducto extends Conexion{
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();  // Mostrar detalles del error
+            e.printStackTrace();
         } finally {
             try {
                 if (rs != null) {
@@ -47,7 +48,7 @@ public class ModeloProducto extends Conexion{
                     pst.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();  // Mostrar detalles del error al cerrar recursos
+                e.printStackTrace(); 
             }
         }
         return productos;
@@ -116,7 +117,7 @@ public class ModeloProducto extends Conexion{
             exito = cstmt.getBoolean(4);
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Manejo de errores
+            e.printStackTrace(); 
         } finally {
             try {
                 if (cstmt != null) {
@@ -127,14 +128,100 @@ public class ModeloProducto extends Conexion{
             }
         }
 
-        return exito; // Devuelve si la compra fue exitosa o no
+        return exito; 
     }
 
-    public Compra getCompra(int id){
-        return null; //todo
+    //TODO: Hacer el store procedure en mysql
+    public List<Compra> getAllCompras(int id_usuario){
+        ArrayList<Compra> compra = new ArrayList<>();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String sql = "Call selectCompras()";
+            pst = getConexion().prepareCall(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                compra.add(new Compra(rs.getInt("id_compra"),rs.getDate("fecha"), rs.getString("estado"), rs.getDouble("total")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); 
+            }
+        }
+        return compra;
     }
+    
+    //TODO: Este metodo aun no se usa
+    public Compra getCompra(int id_usuario){
+        Compra compra=null;
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        try{
+            String sql = "Call selectCompra(?)";
+            pst = getConexion().prepareCall(sql);
+            pst.setInt(1, id_usuario);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                compra=new Compra(rs.getDate("fecha"), rs.getString("estado"), rs.getDouble("total"));
+            }
+
+        } catch (SQLException e) {
+            
+        }finally{
+            try{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(pst!=null){
+                    pst.close();
+                }
+            }catch(SQLException e){
+                
+            }
+        }
+        return compra;
+    }
+    
+    //TODO: Este metodo aun no se usa
     public List<DetallesCompra> getListaDetallesCompra(int idCompra){
-        return null; //todo
+        ArrayList<DetallesCompra> detallesCompra = new ArrayList<>();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String sql = "Call selectDetallesCompra()";
+            pst = getConexion().prepareCall(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                detallesCompra.add(new DetallesCompra(rs.getInt("id_detalle"),rs.getInt("id_producto"),
+                        rs.getInt("cantidad"),
+                        rs.getDouble("precio")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return detallesCompra;
     }
 
 }
