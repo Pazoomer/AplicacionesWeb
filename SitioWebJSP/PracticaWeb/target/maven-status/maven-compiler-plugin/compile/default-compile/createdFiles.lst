@@ -12,3 +12,4 @@ servlet\InicioSesion.class
 clases\DetallesCompra.class
 clases\Compra.class
 clases\Articulo.class
+servlet\EliminarCart.class

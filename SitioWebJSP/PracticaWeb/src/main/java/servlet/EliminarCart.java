@@ -9,8 +9,12 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AddCart extends HttpServlet {
-    
+/**
+ *
+ * @author t1pas
+ */
+public class EliminarCart extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -23,33 +27,20 @@ public class AddCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-        int idproducto = Integer.parseInt(request.getParameter("idproducto"));
-        
-        HttpSession sesion = request.getSession(true);
-        ArrayList<Articulo> articulos = sesion.getAttribute("carrito") == null ? new ArrayList<>() : (ArrayList) sesion.getAttribute("carrito");
-        
-        boolean flag = false;        
-        if(!articulos.isEmpty()){
-            for(Articulo a : articulos){
-                if(idproducto == a.getIdProducto()){
-                    a.setCantidad(a.getCantidad() + cantidad);
-                    flag = true;
-                    break;
-                }
-            }
-        }
-        
-        if(!flag){
-            articulos.add(new Articulo(idproducto, cantidad));
-        }
-        
-        sesion.setAttribute("carrito", articulos);
+        int idProducto = Integer.parseInt(request.getParameter("id_producto"));
 
-        // Enviar mensaje como atributo de la solicitud
-        request.setAttribute("mensaje", "Producto agregado al carrito con éxito.");
-        request.getRequestDispatcher("shop.jsp").forward(request, response); 
+        // Obtener la sesión y el carrito
+        HttpSession sesion = request.getSession();
+        ArrayList<Articulo> articulos = (ArrayList<Articulo>) sesion.getAttribute("carrito");
+
+        if (articulos != null) {
+            // Buscar y eliminar el producto del carrito
+            articulos.removeIf(a -> a.getIdProducto() == idProducto);
+            sesion.setAttribute("carrito", articulos); // Actualizar el carrito en la sesión
+        }
+
+        // Redirigir de vuelta al carrito
+        response.sendRedirect("cart.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

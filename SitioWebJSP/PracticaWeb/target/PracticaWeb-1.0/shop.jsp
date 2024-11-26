@@ -54,6 +54,14 @@
             </li>
         </ul>
     </nav>
+    <% 
+    String mensaje = (String) request.getAttribute("mensaje");
+    if (mensaje != null) {
+    %>
+    <div class="alert alert-success"><%= mensaje %></div>
+    <% 
+        } 
+    %>
     <div class="container-fluid">
         <div class="row">
             <%= cp.getProductos() %>

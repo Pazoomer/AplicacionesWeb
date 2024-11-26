@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    
     <!-- Servlet para Iniciar Sesión -->
     <servlet>
         <servlet-name>InicioSesion</servlet-name>
         <servlet-class>servlet.InicioSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarCart</servlet-name>
+        <servlet-class>servlet.EliminarCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
     </servlet-mapping>
-    
     <!-- Servlet para Registrar Usuario -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
@@ -20,7 +22,6 @@
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/nuevousuario</url-pattern>
     </servlet-mapping>
-    
     <!-- Servlet para Añadir al carrito -->
     <servlet>
         <servlet-name>AddCart</servlet-name>
@@ -29,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>AddCart</servlet-name>
         <url-pattern>/AddCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarCart</servlet-name>
+        <url-pattern>/EliminarCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
