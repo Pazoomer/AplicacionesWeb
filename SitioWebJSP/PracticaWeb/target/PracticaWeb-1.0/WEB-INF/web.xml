@@ -9,6 +9,10 @@
         <servlet-name>EliminarCart</servlet-name>
         <servlet-class>servlet.EliminarCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Detalles</servlet-name>
+        <servlet-class>servlet.detalles</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -34,6 +38,10 @@
     <servlet-mapping>
         <servlet-name>EliminarCart</servlet-name>
         <url-pattern>/EliminarCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Detalles</servlet-name>
+        <url-pattern>/detalles</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

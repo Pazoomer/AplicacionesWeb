@@ -7,13 +7,13 @@ import java.sql.Date;
  * @author t1pas
  */
 public class Compra {
-    private int idUsuario;
+    private int idCompra;
     private Date fecha;
     private String estado;
     private double total;
 
-    public Compra(int idUsuario, Date fecha, String estado, double total) {
-        this.idUsuario = idUsuario;
+    public Compra(int idCompra, Date fecha, String estado, double total) {
+        this.idCompra = idCompra;
         this.fecha = fecha;
         this.estado = estado;
         this.total = total;
@@ -23,14 +23,6 @@ public class Compra {
         this.fecha = fecha;
         this.estado = estado;
         this.total = total;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public Date getFecha() {
@@ -56,6 +48,13 @@ public class Compra {
     public void setTotal(double total) {
         this.total = total;
     }
-    
+
+    public int getIdCompra() {
+        return idCompra;
+    }
+
+    public void setIdCompra(int idCompra) {
+        this.idCompra = idCompra;
+    }
     
 }

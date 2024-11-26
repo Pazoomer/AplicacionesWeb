@@ -1,6 +1,10 @@
 <%@page import="clases.Producto"%> 
 <%@page import="controlador.ControladorProducto"%>
 <%@page import="clases.Articulo"%>
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page session="true" %>
 <%
@@ -30,11 +34,10 @@ if (request.getParameter("confirmarCompra") != null) {
             // Maneja el caso en el que el usuario no esté autenticado
             throw new IllegalStateException("El usuario no ha iniciado sesión.");
         }
-        
         // Llamar al método para realizar la compra  
-        boolean compraExitosa = cp.comprarProductos(productosId, cantidades, usuarioId);
-        
-        if (compraExitosa) {
+        Object compraExitosa = cp.comprarProductos(productosId, cantidades, usuarioId);
+        mensajeCompra=compraExitosa.toString();
+        /*if (compraExitosa) {
             // Vaciar el carrito tras una compra exitosa
             session.setAttribute("carrito", null);
             compraRealizada = true;
@@ -42,7 +45,7 @@ if (request.getParameter("confirmarCompra") != null) {
         } else {
             errorCompra = true;
             mensajeCompra = "Hubo un problema al procesar tu compra. Verifica el stock disponible.";
-        }
+        }*/
     } else {
         errorCompra = true;
         mensajeCompra = "No hay artículos en tu carrito.";

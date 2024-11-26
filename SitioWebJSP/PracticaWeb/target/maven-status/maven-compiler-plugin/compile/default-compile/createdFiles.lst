@@ -11,5 +11,6 @@ servlet\AddCart.class
 servlet\InicioSesion.class
 clases\DetallesCompra.class
 clases\Compra.class
+servlet\detalles.class
 clases\Articulo.class
 servlet\EliminarCart.class

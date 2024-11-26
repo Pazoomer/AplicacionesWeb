@@ -85,7 +85,7 @@ public class ModeloProducto extends Conexion{
         return producto;
     }   
 
-    public boolean comprarProductos(int[] productosId, int[] cantidades, int usuarioId) {
+    public Object comprarProductos(int[] productosId, int[] cantidades, int usuarioId) {
         CallableStatement cstmt = null;
         boolean exito = false;
 
@@ -118,6 +118,7 @@ public class ModeloProducto extends Conexion{
 
         } catch (SQLException e) {
             e.printStackTrace(); 
+            return e;
         } finally {
             try {
                 if (cstmt != null) {
@@ -131,17 +132,17 @@ public class ModeloProducto extends Conexion{
         return exito; 
     }
 
-    //TODO: Hacer el store procedure en mysql
     public List<Compra> getAllCompras(int id_usuario){
         ArrayList<Compra> compra = new ArrayList<>();
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String sql = "Call selectCompras()";
+            String sql = "Call selectCompras(?)";
             pst = getConexion().prepareCall(sql);
+            pst.setInt(1, id_usuario);
             rs = pst.executeQuery();
             while (rs.next()) {
-                compra.add(new Compra(rs.getInt("id_compra"),rs.getDate("fecha"), rs.getString("estado"), rs.getDouble("total")));
+                compra.add(new Compra(rs.getInt("id_compra"),rs.getDate("fecha_compra"), rs.getString("estado"), rs.getDouble("total")));
             }
 
         } catch (SQLException e) {
@@ -162,14 +163,14 @@ public class ModeloProducto extends Conexion{
     }
     
     //TODO: Este metodo aun no se usa
-    public Compra getCompra(int id_usuario){
+    public Compra getCompra(int id_compra){
         Compra compra=null;
         PreparedStatement pst=null;
         ResultSet rs=null;
         try{
             String sql = "Call selectCompra(?)";
             pst = getConexion().prepareCall(sql);
-            pst.setInt(1, id_usuario);
+            pst.setInt(1, id_compra);
             rs = pst.executeQuery();
             while (rs.next()) {
                 compra=new Compra(rs.getDate("fecha"), rs.getString("estado"), rs.getDouble("total"));
@@ -192,14 +193,14 @@ public class ModeloProducto extends Conexion{
         return compra;
     }
     
-    //TODO: Este metodo aun no se usa
     public List<DetallesCompra> getListaDetallesCompra(int idCompra){
         ArrayList<DetallesCompra> detallesCompra = new ArrayList<>();
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String sql = "Call selectDetallesCompra()";
+            String sql = "Call selectDetallesCompra(?)";
             pst = getConexion().prepareCall(sql);
+            pst.setInt(1, idCompra);
             rs = pst.executeQuery();
             while (rs.next()) {
                 detallesCompra.add(new DetallesCompra(rs.getInt("id_detalle"),rs.getInt("id_producto"),

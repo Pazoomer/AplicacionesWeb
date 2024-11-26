@@ -8,8 +8,7 @@
     
     Integer usuarioId = (Integer) session.getAttribute("id");
     if (usuarioId == null) {
-            // Maneja el caso en el que el usuario no esté autenticado
-        throw new IllegalStateException("El usuario no ha iniciado sesión.");
+        response.sendRedirect("index.jsp");
     }
     controlador.ControladorProducto cp = new controlador.ControladorProducto();
 %>
@@ -53,6 +52,26 @@
                 <%= cp.getCompras(usuarioId) %>
             </div>
         </div>
+        <script>
+function mostrarDetalles(idCompra) {
+    const detallesDiv = document.getElementById('detalles-' + idCompra);
+
+    if (detallesDiv.style.display === 'none') {
+        // Hacer una solicitud AJAX para obtener los detalles
+        fetch('detalles?accion=detalles&idCompra=' + idCompra)
+            .then(response => response.text())
+            .then(data => {
+                detallesDiv.innerHTML = data;
+                detallesDiv.style.display = 'block'; // Mostrar los detalles
+            })
+            .catch(error => {
+                console.error('Error al cargar los detalles:', error);
+            });
+    } else {
+        detallesDiv.style.display = 'none'; // Ocultar los detalles
+    }
+}
+        </script>
     </body>
 </html>
 

@@ -4,6 +4,8 @@ USE sistema;
 -- Cambiar el delimitador para evitar conflictos con el punto y coma
 DELIMITER $$
 
+DELIMITER $$
+
 CREATE PROCEDURE comprarProductos(
     IN productoIDs TEXT,         -- Lista de IDs de productos separados por comas
     IN cantidades TEXT,          -- Lista de cantidades correspondientes separados por comas
@@ -11,43 +13,41 @@ CREATE PROCEDURE comprarProductos(
     OUT compraExitosa BOOLEAN    -- Resultado de la operación
 )
 BEGIN
-    DECLARE listaProductos TEXT;
-    DECLARE listaCantidades TEXT;
-    DECLARE total DECIMAL(10, 2) DEFAULT 0;
-    DECLARE idx INT DEFAULT 0;
-    DECLARE productoID INT;
-    DECLARE cantidad INT;
-    DECLARE stock_actual INT;
-    DECLARE continuar BOOLEAN DEFAULT TRUE;
-    DECLARE idCompra INT;
+    DECLARE idx INT DEFAULT 1;           -- Índice para iterar
+    DECLARE numProductos INT;            -- Número de productos en la lista
+    DECLARE productoID INT;              -- Producto actual
+    DECLARE cantidad INT;                -- Cantidad actual
+    DECLARE stock_actual INT;            -- Stock actual del producto
+    DECLARE precio DECIMAL(10, 2);       -- Precio unitario del producto
+    DECLARE subtotal DECIMAL(10, 2);     -- Subtotal por producto
+    DECLARE total DECIMAL(10, 2) DEFAULT 0; -- Total acumulado
+    DECLARE idCompra INT;                -- ID de la compra
+    DECLARE continuar BOOLEAN DEFAULT TRUE; -- Control de flujo para stock
+    DECLARE total DECIMAL(10, 2) DEFAULT -1;
 
-    -- Convertir las listas de cadenas a formato texto para iterar
-    SET listaProductos = productoIDs; -- productoIDs es una cadena separada por comas
-    SET listaCantidades = cantidades; -- cantidades también es una cadena separada por comas
-
-    -- Iniciar una transacción para asegurar atomicidad
+    -- Iniciar una transacción
     START TRANSACTION;
 
-    -- Validar stock para todos los productos
-    WHILE idx < LENGTH(listaProductos) AND continuar DO
-        -- Extraer el productoID y cantidad correspondientes
-        SET productoID = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(listaProductos, ',', idx + 1), ',', -1) AS UNSIGNED);
-        SET cantidad = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(listaCantidades, ',', idx + 1), ',', -1) AS UNSIGNED);
+    -- Contar el número de elementos en la lista (asumiendo listas bien formateadas)
+    SET numProductos = LENGTH(productoIDs) - LENGTH(REPLACE(productoIDs, ',', '')) + 1;
 
-        -- Obtener el stock actual del producto
-        SELECT stock INTO stock_actual
+    WHILE idx <= numProductos AND continuar DO
+        -- Extraer el productoID y cantidad para el índice actual
+        SET productoID = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(productoIDs, ',', idx), ',', -1) AS UNSIGNED);
+        SET cantidad = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cantidades, ',', idx), ',', -1) AS UNSIGNED);
+
+        -- Obtener el stock actual y el precio del producto
+        SELECT stock, precio INTO stock_actual, precio
         FROM productos
         WHERE id_producto = productoID;
 
         -- Verificar si hay suficiente stock
         IF stock_actual < cantidad THEN
-            SET continuar = FALSE; -- No hay suficiente stock, detener las validaciones
+            SET continuar = FALSE; -- No hay suficiente stock
         ELSE
-            -- Calcular el total
-            SELECT precio INTO total
-            FROM productos
-            WHERE id_producto = productoID;
-            SET total = total + (cantidad * total);
+            -- Calcular subtotal y sumar al total
+            SET subtotal = cantidad * precio;
+            SET total = total + subtotal;
         END IF;
 
         SET idx = idx + 1;
@@ -58,25 +58,30 @@ BEGIN
         ROLLBACK;
         SET compraExitosa = FALSE;
     ELSE
-        -- Insertar la compra en la tabla compras
+        -- Insertar la compra en la tabla `compras`
         INSERT INTO compras (id_usuario, total, estado)
         VALUES (idUsuario, total, 'pendiente');
 
-        -- Obtener el ID de la compra recién insertada
+        -- Obtener el ID de la compra recién creada
         SET idCompra = LAST_INSERT_ID();
 
-        -- Insertar los detalles de la compra y actualizar el stock
-        SET idx = 0;
-        WHILE idx < LENGTH(listaProductos) DO
-            -- Extraer el productoID y cantidad correspondientes
-            SET productoID = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(listaProductos, ',', idx + 1), ',', -1) AS UNSIGNED);
-            SET cantidad = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(listaCantidades, ',', idx + 1), ',', -1) AS UNSIGNED);
+        -- Reiniciar el índice para iterar de nuevo
+        SET idx = 1;
 
-            -- Insertar en detalle_compra
-            INSERT INTO detalle_compra (id_compra, id_producto, cantidad, precio)
-            SELECT idCompra, id_producto, cantidad, precio
+        -- Insertar en `detalle_compra` y actualizar stock
+        WHILE idx <= numProductos DO
+            -- Extraer el productoID y cantidad
+            SET productoID = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(productoIDs, ',', idx), ',', -1) AS UNSIGNED);
+            SET cantidad = CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cantidades, ',', idx), ',', -1) AS UNSIGNED);
+
+            -- Obtener el precio del producto
+            SELECT precio INTO precio
             FROM productos
             WHERE id_producto = productoID;
+
+            -- Insertar en `detalle_compra`
+            INSERT INTO detalle_compra (id_compra, id_producto, cantidad, precio)
+            VALUES (idCompra, productoID, cantidad, precio);
 
             -- Actualizar el stock del producto
             UPDATE productos
@@ -86,7 +91,7 @@ BEGIN
             SET idx = idx + 1;
         END WHILE;
 
-        -- Confirmar la transacción y devolver TRUE
+        -- Confirmar la transacción
         COMMIT;
         SET compraExitosa = TRUE;
     END IF;
@@ -105,6 +110,25 @@ CREATE PROCEDURE selectProductos()
 BEGIN
     SELECT id_producto, nombre, img_producto, precio, stock, descripcion
     FROM productos;
+END $$
+
+CREATE PROCEDURE selectCompras(
+    IN p_id_usuario INT
+)
+BEGIN
+    SELECT id_compra, fecha_compra, estado, total
+    FROM compras
+    WHERE id_usuario = p_id_usuario
+    ORDER BY fecha_compra DESC;
+END $$
+
+CREATE PROCEDURE selectDetallesCompra(
+    IN p_id_compra INT
+)
+BEGIN
+    SELECT id_detalle, id_producto, cantidad, precio
+    FROM detalle_compra
+    WHERE id_compra = p_id_compra;
 END $$
 
 -- Restaurar el delimitador a ;
