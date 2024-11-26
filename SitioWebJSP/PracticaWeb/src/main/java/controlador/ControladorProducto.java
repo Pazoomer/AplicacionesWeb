@@ -1,6 +1,9 @@
 package controlador;
 
+import clases.Compra;
+import clases.DetallesCompra;
 import clases.Producto;
+import java.util.List;
 import modelos.ModeloProducto;
 
 public class ControladorProducto {
@@ -36,7 +39,14 @@ public class ControladorProducto {
         return new ModeloProducto().getProducto(id);
     }
     
-    public boolean comprarProducto(int productoId, int cantidad){
-        return new ModeloProducto().comprarProducto(productoId, cantidad);
+    public boolean comprarProductos(int[] productosId, int[] cantidades, int usuarioId){
+        return new ModeloProducto().comprarProductos(productosId, cantidades,usuarioId);
+    }
+    
+    public Compra getCompra(int id){
+        return new ModeloProducto().getCompra(id);
+    }
+    public List<DetallesCompra> getListaDetallesCompra(int idCompra){
+        return new ModeloProducto().getListaDetallesCompra(idCompra);
     }
 }

@@ -9,4 +9,6 @@ controlador\Conexion.class
 controlador\ControladorProducto.class
 servlet\AddCart.class
 servlet\InicioSesion.class
+clases\DetallesCompra.class
+clases\Compra.class
 clases\Articulo.class

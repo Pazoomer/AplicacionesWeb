@@ -1,5 +1,7 @@
 package modelos;
 
+import clases.Compra;
+import clases.DetallesCompra;
 import clases.Producto;
 import controlador.Conexion;
 import java.sql.CallableStatement;
@@ -7,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -31,7 +35,6 @@ public class ModeloProducto extends Conexion{
                         rs.getInt("stock"),
                         rs.getString("descripcion")));
             }
-            System.out.println("Productos obtenidos: " + productos.size());  // Verificar la cantidad de productos
 
         } catch (SQLException e) {
             e.printStackTrace();  // Mostrar detalles del error
@@ -42,9 +45,6 @@ public class ModeloProducto extends Conexion{
                 }
                 if (pst != null) {
                     pst.close();
-                }
-                if (getConexion() != null) {
-                    getConexion().close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();  // Mostrar detalles del error al cerrar recursos
@@ -77,52 +77,64 @@ public class ModeloProducto extends Conexion{
                 if(pst!=null){
                     pst.close();
                 }
-                if(getConexion()!=null){
-                    getConexion().close();
-                }
             }catch(SQLException e){
                 
             }
         }
         return producto;
     }   
-    
-    public boolean comprarProducto(int productoId, int cantidad) {
+
+    public boolean comprarProductos(int[] productosId, int[] cantidades, int usuarioId) {
         CallableStatement cstmt = null;
         boolean exito = false;
+
         try {
-            // Llamada al procedimiento almacenado 'comprar_producto'
-            String sql = "{CALL comprar_producto(?, ?, ?)}";
+            // Convertir los arreglos a cadenas separadas por comas
+            String listaProductos = Arrays.stream(productosId)
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.joining(","));
+            String listaCantidades = Arrays.stream(cantidades)
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.joining(","));
+
+            // Llamada al procedimiento almacenado 'comprarProductos'
+            String sql = "{CALL comprarProductos(?, ?, ?, ?)}";
             cstmt = getConexion().prepareCall(sql);
 
             // Establecer los parámetros de entrada
-            cstmt.setInt(1, productoId);
-            cstmt.setInt(2, cantidad);
+            cstmt.setString(1, listaProductos); // Lista de IDs de productos separados por comas
+            cstmt.setString(2, listaCantidades); // Lista de cantidades correspondientes separados por comas
+            cstmt.setInt(3, usuarioId);          // ID del usuario
 
             // Registrar el parámetro de salida
-            cstmt.registerOutParameter(3, java.sql.Types.BOOLEAN);
+            cstmt.registerOutParameter(4, java.sql.Types.BOOLEAN);
 
             // Ejecutar el procedimiento
             cstmt.execute();
 
             // Leer el valor del parámetro de salida
-            exito = cstmt.getBoolean(3);
+            exito = cstmt.getBoolean(4);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Manejo de errores
         } finally {
             try {
                 if (cstmt != null) {
                     cstmt.close();
                 }
-                if (getConexion() != null) {
-                    getConexion().close();
-                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return exito;
+
+        return exito; // Devuelve si la compra fue exitosa o no
+    }
+
+    public Compra getCompra(int id){
+        return null; //todo
+    }
+    public List<DetallesCompra> getListaDetallesCompra(int idCompra){
+        return null; //todo
     }
 
 }

@@ -5,7 +5,7 @@
 <%@ page session="true" %>
 <%
     ArrayList<Articulo> articulos = session.getAttribute("carrito") == null ? null : (ArrayList) session.getAttribute("carrito");
-    ControladorProducto cp = new ControladorProducto();
+    controlador.ControladorProducto cp = new controlador.ControladorProducto();
 
     // Variables para mostrar el estado de la compra
     boolean compraRealizada = false;
@@ -13,31 +13,42 @@
     String mensajeCompra = "";
 
     // Procesar la compra si se envió el formulario
-    if (request.getParameter("confirmarCompra") != null) {
-        if (articulos != null && !articulos.isEmpty()) {
-            boolean compraExitosa = true;
+if (request.getParameter("confirmarCompra") != null) {
+    if (articulos != null && !articulos.isEmpty()) {
+        // Crear listas de IDs de productos y cantidades
+        int[] productosId = new int[articulos.size()];
+        int[] cantidades = new int[articulos.size()];
 
-            for (Articulo articulo : articulos) {
-                boolean resultado = cp.comprarProducto(articulo.getIdProducto(), articulo.getCantidad());
-                if (!resultado) {
-                    compraExitosa = false;
-                    errorCompra = true;
-                    mensajeCompra = "Hubo un problema al procesar tu compra. Verifica el stock disponible.";
-                    break;
-                }
-            }
-
-            if (compraExitosa) {
-                // Vaciar el carrito tras una compra exitosa
-                session.setAttribute("carrito", null);
-                compraRealizada = true;
-                mensajeCompra = "¡Compra realizada con éxito!";
-            }
+        for (int i = 0; i < articulos.size(); i++) {
+            Articulo articulo = articulos.get(i);
+            productosId[i] = articulo.getIdProducto();
+            cantidades[i] = articulo.getCantidad();
+        }
+        // Obtener el ID del usuario actual desde la sesión
+        Integer usuarioId = (Integer) session.getAttribute("id");
+        if (usuarioId == null) {
+            // Maneja el caso en el que el usuario no esté autenticado
+            throw new IllegalStateException("El usuario no ha iniciado sesión.");
+        }
+        
+        // Llamar al método para realizar la compra  
+        boolean compraExitosa = cp.comprarProductos(productosId, cantidades, usuarioId);
+        
+        if (compraExitosa) {
+            // Vaciar el carrito tras una compra exitosa
+            session.setAttribute("carrito", null);
+            compraRealizada = true;
+            mensajeCompra = "¡Compra realizada con éxito!";
         } else {
             errorCompra = true;
-            mensajeCompra = "No hay artículos en tu carrito.";
+            mensajeCompra = "Hubo un problema al procesar tu compra. Verifica el stock disponible.";
         }
+    } else {
+        errorCompra = true;
+        mensajeCompra = "No hay artículos en tu carrito.";
     }
+}
+
 %>
 <!DOCTYPE html>
 <html lang="en">

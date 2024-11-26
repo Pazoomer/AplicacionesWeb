@@ -31,5 +31,6 @@
             <p class="text-center mt-3">¿No tienes una cuenta? <a href="registro.jsp">Registrar</a></p>
         </div>
     </body>
+    
 </html>
 
