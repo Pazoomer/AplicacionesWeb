@@ -35,9 +35,9 @@ if (request.getParameter("confirmarCompra") != null) {
             throw new IllegalStateException("El usuario no ha iniciado sesión.");
         }
         // Llamar al método para realizar la compra  
-        Object compraExitosa = cp.comprarProductos(productosId, cantidades, usuarioId);
-        mensajeCompra=compraExitosa.toString();
-        /*if (compraExitosa) {
+        boolean compraExitosa = cp.comprarProductos(productosId, cantidades, usuarioId);
+        //mensajeCompra=compraExitosa.toString();
+        if (compraExitosa) {
             // Vaciar el carrito tras una compra exitosa
             session.setAttribute("carrito", null);
             compraRealizada = true;
@@ -45,7 +45,7 @@ if (request.getParameter("confirmarCompra") != null) {
         } else {
             errorCompra = true;
             mensajeCompra = "Hubo un problema al procesar tu compra. Verifica el stock disponible.";
-        }*/
+        }
     } else {
         errorCompra = true;
         mensajeCompra = "No hay artículos en tu carrito.";

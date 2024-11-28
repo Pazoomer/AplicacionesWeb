@@ -38,7 +38,7 @@ public class ControladorProducto {
         return new ModeloProducto().getProducto(id);
     }
     
-    public Object comprarProductos(int[] productosId, int[] cantidades, int usuarioId){
+    public boolean comprarProductos(int[] productosId, int[] cantidades, int usuarioId){
         return new ModeloProducto().comprarProductos(productosId, cantidades,usuarioId);
     }
     

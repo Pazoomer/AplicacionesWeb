@@ -85,7 +85,7 @@ public class ModeloProducto extends Conexion{
         return producto;
     }   
 
-    public Object comprarProductos(int[] productosId, int[] cantidades, int usuarioId) {
+    public boolean comprarProductos(int[] productosId, int[] cantidades, int usuarioId) {
         CallableStatement cstmt = null;
         boolean exito = false;
 
@@ -118,7 +118,6 @@ public class ModeloProducto extends Conexion{
 
         } catch (SQLException e) {
             e.printStackTrace(); 
-            return e;
         } finally {
             try {
                 if (cstmt != null) {
@@ -128,7 +127,6 @@ public class ModeloProducto extends Conexion{
                 e.printStackTrace();
             }
         }
-
         return exito; 
     }
 
