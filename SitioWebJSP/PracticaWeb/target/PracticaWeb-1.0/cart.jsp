@@ -8,6 +8,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page session="true" %>
 <%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+    
     ArrayList<Articulo> articulos = session.getAttribute("carrito") == null ? null : (ArrayList) session.getAttribute("carrito");
     controlador.ControladorProducto cp = new controlador.ControladorProducto();
 
@@ -89,7 +93,7 @@ if (request.getParameter("confirmarCompra") != null) {
                     <a class="nav-link" href="contacto.jsp">Contacto</a> 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="logout.jsp">Cerrar sesión</a> 
+                    <a class="nav-link" href="CerrarSesion">Cerrar sesión</a> 
                 </li>
             </ul>
         </nav>

@@ -13,6 +13,10 @@
         <servlet-name>Detalles</servlet-name>
         <servlet-class>servlet.detalles</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CerrarSesion</servlet-name>
+        <servlet-class>servlet.CerrarSesion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -43,6 +47,18 @@
         <servlet-name>Detalles</servlet-name>
         <url-pattern>/detalles</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CerrarSesion</servlet-name>
+        <url-pattern>/CerrarSesion</url-pattern>
+    </servlet-mapping>
+    <filter>
+        <filter-name>FiltroAutenticacion</filter-name>
+        <filter-class>filtros.FiltroAutenticacion</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroAutenticacion</filter-name>
+        <url-pattern>/restricto/*</url-pattern>
+    </filter-mapping>
     <session-config>
         <session-timeout>
             30

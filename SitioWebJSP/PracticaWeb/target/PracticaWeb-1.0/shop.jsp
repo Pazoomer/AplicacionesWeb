@@ -1,6 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="controlador.ControladorProducto"%>
 <%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+    
     if (session == null || session.getAttribute("usuario") == null) {
         response.sendRedirect("index.jsp");
     }
@@ -50,7 +54,7 @@
                     <a class="nav-link" href="contacto.jsp">Contacto</a> 
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="logout.jsp">Cerrar sesión</a> 
+                <a class="nav-link" href="CerrarSesion">Cerrar sesión</a> 
             </li>
         </ul>
     </nav>
