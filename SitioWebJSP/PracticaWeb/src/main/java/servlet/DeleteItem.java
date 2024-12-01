@@ -2,7 +2,7 @@ package servlet;
 
 import clases.Articulo;
 import clases.Producto;
-import controlador.ControladorProducto;
+import controlador.ControladorCompraProducto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +43,7 @@ public class DeleteItem extends HttpServlet {
         }
         
         double total = 0;
-        ControladorProducto cp = new ControladorProducto();
+        ControladorCompraProducto cp = new ControladorCompraProducto();
         for(Articulo a : articulos){                
             Producto producto = cp.getProducto(a.getIdProducto());
             total += a.getCantidad() * producto.getPrecio();            

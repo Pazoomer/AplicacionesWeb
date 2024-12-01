@@ -1,5 +1,5 @@
 <%@page import="clases.Producto"%> 
-<%@page import="controlador.ControladorProducto"%>
+<%@page import="controlador.ControladorCompraProducto"%>
 <%@page import="clases.Articulo"%>
 <%@page import="java.util.stream.Collectors"%>
 <%@page import="java.util.ArrayList"%>
@@ -13,7 +13,7 @@
     response.setDateHeader("Expires", 0); // Proxies
     
     ArrayList<Articulo> articulos = session.getAttribute("carrito") == null ? null : (ArrayList) session.getAttribute("carrito");
-    controlador.ControladorProducto cp = new controlador.ControladorProducto();
+    controlador.ControladorCompraProducto cp = new controlador.ControladorCompraProducto();
 
     // Variables para mostrar el estado de la compra
     boolean compraRealizada = false;

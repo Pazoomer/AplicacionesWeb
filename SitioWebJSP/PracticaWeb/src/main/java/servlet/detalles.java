@@ -1,6 +1,6 @@
 package servlet;
 
-import controlador.ControladorProducto;
+import controlador.ControladorCompraProducto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class detalles extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
-        ControladorProducto cp = new ControladorProducto();
+        ControladorCompraProducto cp = new ControladorCompraProducto();
 
         if ("detalles".equals(accion)) {
             int idCompra = Integer.parseInt(request.getParameter("idCompra"));

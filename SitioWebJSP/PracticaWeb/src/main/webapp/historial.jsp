@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="controlador.ControladorProducto" %>
+<%@page import="controlador.ControladorCompraProducto" %>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
@@ -14,7 +14,7 @@
     if (usuarioId == null) {
         response.sendRedirect("index.jsp");
     }
-    controlador.ControladorProducto cp = new controlador.ControladorProducto();
+    controlador.ControladorCompraProducto cp = new controlador.ControladorCompraProducto();
 %>
 <!DOCTYPE html>
 <html>
