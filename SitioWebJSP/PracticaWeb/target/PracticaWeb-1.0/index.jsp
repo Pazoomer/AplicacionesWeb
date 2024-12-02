@@ -17,14 +17,64 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Iniciar Sesion | ChickenGo</title>
+        <title>Iniciar Sesión | ChickenGo</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background-color: #f8f1f1; /* Fondo claro */
+            }
+            .container {
+                background-color: #fff3e0; /* Fondo anaranjado */
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+            }
+            h1 {
+                color: #c74e1e; /* Color café */
+                font-family: 'Arial', sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .form-label, .btn {
+                color: #c74e1e; /* Texto color café */
+            }
+            .btn {
+                background-color: #e88a4e; /* Naranja */
+                border: none;
+                font-weight: bold;
+            }
+            .btn:hover {
+                background-color: #d45523; /* Naranja más oscuro */
+            }
+            footer {
+                background-color: #c74e1e; /* Color café oscuro */
+                color: #fff;
+            }
+            .form-control {
+                border-color: #e88a4e; /* Borde naranja */
+            }
+            .form-control:focus {
+                border-color: #c74e1e; /* Borde color café al enfocar */
+                box-shadow: 0 0 0 0.2rem rgba(199, 78, 30, 0.25);
+            }
+            .form-control::placeholder {
+                color: #c74e1e; /* Texto de marcador de posición color café */
+            }
+            .logo {
+                max-width: 100%; /* Asegura que la imagen no se salga del contenedor */
+                height: auto; /* Mantiene la proporción de la imagen */
+            }
+        </style>
     </head>
-    <body class="bg-light">
+    <body>
         <div class="container mt-5">
-            <h1 class="text-center mb-4">Iniciar Sesión</h1>
-            <form action="iniciar" method="post" class="w-50 mx-auto border p-4 rounded bg-white shadow-sm">
+            <h1 class="text-center mb-4">
+                <img src="img/logo.jpg" alt="Logo de ChickenGo" class="logo img-fluid" style="max-width: 15rem;">
+            </h1>
+            <p class="text-center" style="color: #c74e1e; font-size: 1.2rem;">Tu lugar para el mejor pollo asado</p>
+            <form action="iniciar" method="post" class="w-50 mx-auto border p-4 rounded shadow-sm">
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Nombre de Usuario</label>
                     <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Nombre de usuario">
@@ -33,11 +83,12 @@
                     <label for="clave" class="form-label">Contraseña</label>
                     <input type="password" id="clave" name="clave" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                <button type="submit" class="btn w-100">Iniciar Sesión</button>
             </form>
-            <p class="text-center mt-3">¿No tienes una cuenta? <a href="registro.jsp">Registrar</a></p>
+            <p class="text-center mt-3">¿No tienes una cuenta? <a href="registro.jsp" style="color: #e88a4e;">Registrar</a></p>
         </div>
+        <footer class="bg-dark text-light text-center py-3">
+            © Derechos Reservados 2024 - ChickenGo
+        </footer>
     </body>
-    
 </html>
-

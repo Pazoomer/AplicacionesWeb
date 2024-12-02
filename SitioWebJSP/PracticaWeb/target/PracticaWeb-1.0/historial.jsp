@@ -26,31 +26,59 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+                body {
+            background-color: #933e06; 
+        }
+        .navbar {
+            background-color: #3F2419; 
+        }
+        .navbar-brand {
+            color: #ff6700 !important; 
+            font-weight: bold;
+        }
+        .nav-link {
+            color: #f8f9fa !important; 
+        }
+        .nav-link:hover {
+            color: #ff6700 !important;
+        }
+    </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-            <a class="navbar-brand" href="menu.jsp">Logo</a>
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="menu.jsp">Inicio</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="shop.jsp">Productos</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="cart.jsp">Carrito</a> 
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="historial.jsp">Historial de compras</a> 
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="contacto.jsp">Contacto</a> 
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="CerrarSesion">Cerrar sesión</a> 
-                </li>
-            </ul>
-        </nav>
+              <nav class="navbar navbar-expand-sm navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="menu.jsp">
+                    <img src="img/logo.jpg" alt="" style="height: 80px; margin-right: 10px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="menu.jsp">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.jsp">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cart.jsp">Carrito</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="historial.jsp">Historial de compras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contacto.jsp">Contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="CerrarSesion">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+        </nav> 
         <div class="container-fluid">
             <div class="row">
                 <%= cp.getCompras(usuarioId) %>
@@ -76,6 +104,10 @@ function mostrarDetalles(idCompra) {
     }
 }
         </script>
+        <footer class="bg-dark text-light text-center py-3 mt-4">
+    <p class="mb-0">© Derechos Reservados 2024</p>
+</footer>
+
     </body>
 </html>
 

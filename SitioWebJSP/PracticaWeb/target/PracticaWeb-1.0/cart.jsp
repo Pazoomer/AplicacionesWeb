@@ -68,34 +68,61 @@ if (request.getParameter("confirmarCompra") != null) {
         <link href="css/main.css" rel="stylesheet">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            body {
+                background-color: #933e06; 
+            }
+            .navbar {
+                background-color: #3F2419; 
+            }
+            .navbar-brand {
+                color: #ff6700 !important;
+                font-weight: bold;
+            }
+            .nav-link {
+                color: #f8f9fa !important; 
+            }
+            .nav-link:hover {
+                color: #ff6700 !important; 
+            }
+        </style>
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-            <a class="navbar-brand" href="menu.jsp">Logo</a>
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="menu.jsp">Inicio</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="shop.jsp">Productos</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="cart.jsp">Carrito</a> 
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="historial.jsp">Historial de compras</a> 
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="contacto.jsp">Contacto</a> 
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="CerrarSesion">Cerrar sesión</a> 
-                </li>
-            </ul>
+        <nav class="navbar navbar-expand-sm navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="menu.jsp">
+                    <img src="img/logo.jpg" alt="" style="height: 80px; margin-right: 10px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="menu.jsp">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.jsp">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cart.jsp">Carrito</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="historial.jsp">Historial de compras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contacto.jsp">Contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="CerrarSesion">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
         <section id="cart_items">
             <div class="container">
@@ -106,21 +133,50 @@ if (request.getParameter("confirmarCompra") != null) {
                 </div>
 
                 <!-- Mensaje de compra -->
-                <% if (mensajeCompra != "") { %>
-                <div class="alert <%= compraRealizada ? "alert-success" : "alert-danger" %> text-center">
-                    <strong><%= mensajeCompra %></strong>
+                <% if (mensajeCompra != "") {%>
+                <div class="alert <%= compraRealizada ? "alert-success" : "alert-danger"%> text-center">
+                    <strong><%= mensajeCompra%></strong>
                     <% if (compraRealizada) { %>
                     <a href="shop.jsp" class="btn btn-primary mt-3">Seguir comprando</a>
                     <% } else { %>
                     <a href="cart.jsp" class="btn btn-warning mt-3">Reintentar</a>
                     <% } %>
                 </div>
-                <% } else if (articulos == null || articulos.isEmpty()) { %>
-                <div class="alert alert-warning text-center">
-                    <strong>Tu carrito está vacío.</strong>
-                    <a href="shop.jsp" class="btn btn-primary mt-3">Ir a la tienda</a>
-                </div>
-                <% } else { %>
+<% } else if (articulos == null || articulos.isEmpty()) { %>
+
+<div id="emptyCartModal" class="modal show d-block" tabindex="-1" aria-labelledby="emptyCartModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="emptyCartModalLabel">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Advertencia
+                </h5>
+            </div>
+            <div class="modal-body text-center">
+                <strong>Tu carrito está vacío.</strong>
+                <p class="mt-3">Por favor, añade productos para continuar con la compra.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a href="shop.jsp" class="btn btn-primary">Ir a la tienda</a>
+                <button type="button" class="btn btn-secondary" id="closeModalButton">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const closeModalButton = document.getElementById('closeModalButton');
+        const modal = document.getElementById('emptyCartModal');
+
+        closeModalButton.addEventListener('click', function () {
+            modal.classList.remove('show', 'd-block'); 
+            modal.style.display = 'none'; 
+        });
+    });
+</script>
+
+<% } else { %>
                 <!-- Mostrar carrito -->
                 <div class="table-responsive">
                     <table class="table table-condensed">
@@ -138,26 +194,26 @@ if (request.getParameter("confirmarCompra") != null) {
                                 double total = 0;
                                 for (Articulo articulo : articulos) {
                                     Producto producto = cp.getProducto(articulo.getIdProducto());
-                        double subtotal = producto.getPrecio() * articulo.getCantidad();
-                        total += subtotal;
+                                    double subtotal = producto.getPrecio() * articulo.getCantidad();
+                                    total += subtotal;
                             %>
                             <tr>
-                                <td><%= producto.getNombre() %></td>
-                                <td><%= articulo.getCantidad() %></td>
-                                <td>$<%= producto.getPrecio() %></td>
-                                <td>$<%= subtotal %></td>
+                                <td><%= producto.getNombre()%></td>
+                                <td><%= articulo.getCantidad()%></td>
+                                <td>$<%= producto.getPrecio()%></td>
+                                <td>$<%= subtotal%></td>
                                 <td>
                                     <!-- Botón para eliminar el producto -->
                                     <form method="post" action="EliminarCart">
-                                        <input type="hidden" name="id_producto" value="<%= articulo.getIdProducto() %>">
+                                        <input type="hidden" name="id_producto" value="<%= articulo.getIdProducto()%>">
                                         <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
                                 </td>
                             </tr>
-                            <% } %>
+                            <% }%>
                             <tr>
                                 <td colspan="3"><strong>Total</strong></td>
-                                <td><strong>$<%= total %></strong></td>
+                                <td><strong>$<%= total%></strong></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -200,11 +256,18 @@ if (request.getParameter("confirmarCompra") != null) {
                     <button type="submit" name="confirmarCompra" class="btn btn-primary">Confirmar Compra</button>
                 </form>
                 <% } %>
-                <% } %>
+                <% }%>
             </div>
         </section>
 
-        <script>
+        <script >
+            function closeModal() {
+                const modal = document.getElementById('emptyCartModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            }
+
             function validarFormulario() {
                 const nombre = document.getElementById('nombre').value.trim();
                 const direccion = document.getElementById('direccion').value.trim();
@@ -220,5 +283,9 @@ if (request.getParameter("confirmarCompra") != null) {
         </script>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <footer class="bg-dark text-light text-center py-3 mt-4">
+    <p class="mb-0">© Derechos Reservados 2024</p>
+</footer>
+
     </body>
 </html>
