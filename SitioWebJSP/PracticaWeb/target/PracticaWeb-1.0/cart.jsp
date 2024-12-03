@@ -86,7 +86,31 @@ if (request.getParameter("confirmarCompra") != null) {
                 color: #f8f9fa !important; 
             }
             .nav-link:hover {
-                color: #ff6700 !important; 
+                color: #ff6700 !important;
+            }
+            .btn-shop {
+                background-color: #3F2419;
+                color: #ffffff;
+                font-weight: bold;
+                border-radius: 10px;
+                padding: 0.4rem 0.6rem;
+                border: none;
+            }
+            .btn-shop:hover {
+                background-color: #461806;
+            }
+
+            .btn-accept {
+                background-color: #e8a54e;
+                color: #f8e591;
+                font-weight: bold;
+                border-radius: 10px;
+                padding: 0.4rem 0.6rem;
+                border: none;
+            }
+            .btn-accept:hover {
+                background-color: #d45523;
+                color: #fff;
             }
         </style>
     </head>
@@ -131,40 +155,39 @@ if (request.getParameter("confirmarCompra") != null) {
                         <li class="active">Shopping Cart</li>
                     </ol>
                 </div>
-
                 <!-- Mensaje de compra -->
                 <% if (mensajeCompra != "") {%>
                 <div class="alert <%= compraRealizada ? "alert-success" : "alert-danger"%> text-center">
                     <strong><%= mensajeCompra%></strong>
                     <% if (compraRealizada) { %>
-                    <a href="shop.jsp" class="btn btn-primary mt-3">Seguir comprando</a>
+                    <a href="shop.jsp" class="btn btn-shop">Seguir comprando</a>
                     <% } else { %>
-                    <a href="cart.jsp" class="btn btn-warning mt-3">Reintentar</a>
+                    <a href="cart.jsp" class="btn btn-accept">Reintentar</a>
                     <% } %>
                 </div>
-<% } else if (articulos == null || articulos.isEmpty()) { %>
+                <% } else if (articulos == null || articulos.isEmpty()) { %>
 
-<div id="emptyCartModal" class="modal show d-block" tabindex="-1" aria-labelledby="emptyCartModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5);">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-warning text-dark">
-                <h5 class="modal-title" id="emptyCartModalLabel">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Advertencia
-                </h5>
-            </div>
-            <div class="modal-body text-center">
-                <strong>Tu carrito está vacío.</strong>
-                <p class="mt-3">Por favor, añade productos para continuar con la compra.</p>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <a href="shop.jsp" class="btn btn-primary">Ir a la tienda</a>
-                <button type="button" class="btn btn-secondary" id="closeModalButton">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
+                <div id="emptyCartModal" class="modal show d-block" tabindex="-1" aria-labelledby="emptyCartModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning text-dark">
+                                <h5 class="modal-title" id="emptyCartModalLabel">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Advertencia
+                                </h5>
+                            </div>
+                            <div class="modal-body text-center">
+                                <strong>Tu carrito está vacío.</strong>
+                                <p class="mt-3">Por favor, añade productos para continuar con la compra.</p>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <a href="shop.jsp" class="btn btn-shop" >Ir a la tienda</a>
+                                <button type="button" class="btn btn-accept" id="closeModalButton">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<script>
+                <script>
     document.addEventListener('DOMContentLoaded', function () {
         const closeModalButton = document.getElementById('closeModalButton');
         const modal = document.getElementById('emptyCartModal');
@@ -174,9 +197,9 @@ if (request.getParameter("confirmarCompra") != null) {
             modal.style.display = 'none'; 
         });
     });
-</script>
+                </script>
 
-<% } else { %>
+                <% } else { %>
                 <!-- Mostrar carrito -->
                 <div class="table-responsive">
                     <table class="table table-condensed">
@@ -222,7 +245,7 @@ if (request.getParameter("confirmarCompra") != null) {
                 <!-- Botón para mostrar el formulario de checkout -->
                 <% if (request.getParameter("checkout") == null) { %>
                 <form method="post">
-                    <button type="submit" name="checkout" class="btn btn-success">Checkout</button>
+                    <button type="submit" name="checkout" class="btn btn-success" style="background: #461806; color: white">Checkout</button>
                 </form>
                 <% } else { %>
                 <!-- Formulario de datos de envío -->
@@ -253,7 +276,7 @@ if (request.getParameter("confirmarCompra") != null) {
                         <label for="detalles">Detalles adicionales:</label>
                         <textarea class="form-control" id="detalles" name="detalles" rows="3"></textarea>
                     </div>
-                    <button type="submit" name="confirmarCompra" class="btn btn-primary">Confirmar Compra</button>
+                    <button type="submit" name="confirmarCompra" class="btn btn-primary" style="background: #461806; color: white">Confirmar Compra</button>
                 </form>
                 <% } %>
                 <% }%>
@@ -284,8 +307,7 @@ if (request.getParameter("confirmarCompra") != null) {
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <footer class="bg-dark text-light text-center py-3 mt-4">
-    <p class="mb-0">© Derechos Reservados 2024</p>
-</footer>
-
+            <p class="mb-0">© Derechos Reservados 2024</p>
+        </footer>
     </body>
 </html>

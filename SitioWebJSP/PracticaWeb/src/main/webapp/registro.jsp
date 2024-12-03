@@ -35,12 +35,6 @@
                 align-items: center;
                 justify-content: center;
             }
-            h1 img {
-                width: 12rem; /* Ajusta el tamaño del logo */
-                max-width: 100%;
-                height: auto;
-                margin-bottom: 1rem;
-            }
             .form-label, .btn {
                 color: #c74e1e; /* Texto color café */
             }
@@ -66,12 +60,16 @@
             .form-control::placeholder {
                 color: #c74e1e; /* Texto de marcador de posición color café */
             }
+            .logo {
+                max-width: 100%; /* Asegura que la imagen no se salga del contenedor */
+                height: auto; /* Mantiene la proporción de la imagen */
+            }
         </style>
     </head>
     <body>
         <div class="container mt-5">
             <h1 class="text-center mb-4">
-                <img src="img/logo.jpg" alt="Logo de ChickenGo">
+                <img src="img/logo.jpg" alt="Logo de ChickenGo" class="logo img-fluid" style="max-width: 15rem;">
             </h1>
             <p class="text-center" style="color: #c74e1e; font-size: 1.2rem;">Bienvenido a ChickenGo. Registra tu cuenta para empezar.</p>
             <form action="nuevousuario" method="post" class="w-50 mx-auto border p-4 rounded shadow-sm">
@@ -83,8 +81,9 @@
                     <label for="pass" class="form-label">Contraseña</label>
                     <input type="password" id="pass" name="pass" class="form-control">
                 </div>
-                <button type="submit" class="btn w-100">Registrar Usuario</button>
+                <button type="submit" class="btn w-100">Registrarse</button>
             </form>
+            <p class="text-center mt-3">¿Ya tienes cuenta? <a href="index.jsp" style="color: #e88a4e;">Iniciar sesion</a></p>
         </div>
         <footer class="bg-dark text-light text-center py-3 mt-4">
             <p class="mb-0">© Derechos Reservados 2024 - ChickenGo</p>

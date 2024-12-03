@@ -9,9 +9,9 @@
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
     response.setDateHeader("Expires", 0); // Proxies
-    
-    
 %>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -68,6 +68,7 @@
             }
         </style>
     </head>
+    
     <body>
         <div class="container mt-5">
             <h1 class="text-center mb-4">
@@ -75,9 +76,15 @@
             </h1>
             <p class="text-center" style="color: #c74e1e; font-size: 1.2rem;">Tu lugar para el mejor pollo asado</p>
             <form action="iniciar" method="post" class="w-50 mx-auto border p-4 rounded shadow-sm">
+                <c:if test="${not empty sessionScope.error}">
+                    <div class="alert alert-danger text-center">
+                        ${sessionScope.error}
+                    </div>
+                    <c:remove var="error" scope="session" />
+                </c:if>
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Nombre de Usuario</label>
-                    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Nombre de usuario">
+                    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Nombre de usuario" value="${param.usuario}">
                 </div>
                 <div class="mb-3">
                     <label for="clave" class="form-label">Contraseña</label>
@@ -85,10 +92,12 @@
                 </div>
                 <button type="submit" class="btn w-100">Iniciar Sesión</button>
             </form>
+
             <p class="text-center mt-3">¿No tienes una cuenta? <a href="registro.jsp" style="color: #e88a4e;">Registrar</a></p>
         </div>
         <footer class="bg-dark text-light text-center py-3">
             © Derechos Reservados 2024 - ChickenGo
         </footer>
     </body>
+    
 </html>

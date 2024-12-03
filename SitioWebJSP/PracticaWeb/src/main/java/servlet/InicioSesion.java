@@ -34,28 +34,24 @@ public class InicioSesion extends HttpServlet {
 
         // Validar credenciales del usuario
         if (sql.autenticacion(usuario, clave)) {
-            // Obtener el ID del usuario desde la base de datos
             int idUsuario = sql.obtenerIdUsuario(usuario);
-
-            if (idUsuario > 0) { // Asegurarse de que el ID sea válido
-                // Crear sesión y asignar atributos
-                HttpSession objSession = request.getSession(true);
-                objSession.setAttribute("usuario", usuario);
-                objSession.setAttribute("id", idUsuario);
-
-                // Redirigir al menú
+            if (idUsuario > 0) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("usuario", usuario);
+                session.setAttribute("id", idUsuario);
                 response.sendRedirect("menu.jsp");
             } else {
-                // Si no se encuentra el ID, redirigir con un error
-                response.sendRedirect("index.jsp?error=UsuarioNoEncontrado");
+                HttpSession session = request.getSession(true);
+                session.setAttribute("error", "Usuario no encontrado.");
+                response.sendRedirect("index.jsp");
             }
-
         } else {
-            // Credenciales incorrectas, redirigir al login
-            response.sendRedirect("index.jsp?error=CredencialesIncorrectas");
+            HttpSession session = request.getSession(true);
+            session.setAttribute("error", "Usuario o contraseña incorrectos.");
+            response.sendRedirect("index.jsp");
         }
     }
-    
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

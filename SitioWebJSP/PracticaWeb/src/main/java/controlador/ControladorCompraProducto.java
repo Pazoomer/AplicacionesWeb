@@ -92,20 +92,21 @@ public class ControladorCompraProducto {
             producto = getProducto(detalle.getIdProducto());
             if (producto != null) {
                 imagen = getProducto(detalle.getIdProducto()).getImg();
+
+                htmlcode += "<div class=\"col-sm-4\">\n"
+                        + "    <div class=\"product-image-wrapper\" class=\"card h-100\"\n"
+                        + "        style=\"border-radius: 15px; background-color: #c74e1e43; width: 12rem; margin: auto; padding-bottom: .8rem;\">\n"
+                        + "        <div class=\"single-products\">\n"
+                        + "            <div class=\"productinfo text-center\">\n"
+                        + "                <img src=\"" + imagen + "\" alt=\"\" style=\"border-radius: 10px; width: 100%; height: 10rem; object-fit: cover;\">\n"
+                        + "                <p style=\"color: #ffffff; font-weight: bold; font-size: 1rem;\">" + producto.getNombre() + "</p>\n"
+                        + "                <h2 style=\"color: #ffcc00; font-weight: bold; font-size: 1.2rem;\">$" + detalle.getPrecio() + "</h2>\n"
+                        + "                <p style=\"color: #ffffff; font-weight: bold; font-size: 1rem;\">Cantidad: " + detalle.getCantidad() + "</p>\n"
+                        + "            </div>\n"
+                        + "        </div>\n"
+                        + "    </div>\n"
+                        + "</div>";
             }
-            htmlcode += "<div class=\"col-sm-4\">\n"
-                    + "    <div class=\"product-image-wrapper\" class=\"card h-100\"\n"
-                    + "        style=\"border-radius: 15px; background-color: #c74e1e43; width: 12rem; margin: auto; padding-bottom: .8rem;\">\n"
-                    + "        <div class=\"single-products\">\n"
-                    + "            <div class=\"productinfo text-center\">\n"
-                    + "                <img src=\"" + imagen + "\" alt=\"\" style=\"border-radius: 10px; height: 10rem; object-fit: cover;\">\n"
-                    + "                <p style=\"color: #ffffff; font-weight: bold; font-size: 1rem;\">Producto# " + detalle.getIdProducto() + "</p>\n"
-                    + "                <h2 style=\"color: #ffcc00; font-weight: bold; font-size: 1.2rem;\">$" + detalle.getPrecio() + "</h2>\n"
-                    + "                <p style=\"color: #ffffff; font-weight: bold; font-size: 1rem;\">Cantidad: " + detalle.getCantidad() + "</p>\n"
-                    + "            </div>\n"
-                    + "        </div>\n"
-                    + "    </div>\n"
-                    + "</div>";
         }
         return htmlcode;
     }

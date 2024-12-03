@@ -148,7 +148,7 @@
                     <label for="mensaje">Mensaje:</label>
                     <textarea id="mensaje" name="mensaje" class="form-control" rows="5" required></textarea>
                 </div>
-                <button type="button" id="enviarBtn" class="btn btn-primary btn-block">Enviar</button>
+                <button type="button" id="enviarBtn" class="btn btn-primary btn-block" style="background: #461806; color: white">Enviar</button>
             </form>
             <div id="mensajeExito" class="alert alert-success text-center mt-3 d-none">
                 ¡Tu mensaje ha sido enviado con éxito!
