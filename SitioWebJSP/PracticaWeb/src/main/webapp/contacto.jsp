@@ -154,10 +154,19 @@
                 ¡Tu mensaje ha sido enviado con éxito!
             </div>
         </div>
-
         <footer class="bg-dark text-light text-center py-3 mt-4">
             <p class="mb-0">© Derechos Reservados 2024</p>
+            <div class="mt-2">
+                <a href="https://www.facebook.com/p/Chicken-GO-Pollos-a-la-le%C3%B1a-100063581016962/" target="_blank" class="text-light mx-2">
+                    <i class="fab fa-facebook fa-lg"></i>
+                </a>
+                <a href="https://www.instagram.com/chickengo.obregon/" target="_blank" class="text-light mx-2">
+                    <i class="fab fa-instagram fa-lg"></i>
+                </a>
+            </div>
         </footer>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
         <script>
     document.getElementById("enviarBtn").addEventListener("click", function () {
         const nombre = document.getElementById("nombre").value.trim();
